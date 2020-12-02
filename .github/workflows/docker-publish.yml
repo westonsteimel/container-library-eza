@@ -31,7 +31,6 @@ jobs:
         run: |
           export DOCKER_BUILD_CONTEXT="edge"
           export DOCKER_IMAGE_VERSION="master"
-          DATE_TAG=`date --utc --rfc-3339=date`
-          export DOCKER_TAGS="edge,edge-${DATE_TAG}"
+          export DOCKER_TAGS="edge"
           ./scripts/publish.sh
 
