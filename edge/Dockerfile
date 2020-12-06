@@ -4,15 +4,17 @@ ARG CREATED
 ARG VERSION
 ARG GIT_REF="${VERSION}"
 
-FROM westonsteimel/rust-static-builder:nightly as builder
+FROM westonsteimel/rust-static-builder:stable as builder
 
 ARG GIT_REF
 
 RUN git clone --depth 1 --branch "${GIT_REF}" https://github.com/ogham/exa /build/exa \
     && cd /build/exa \
-    && NOCOMPRESS=1 /home/builder/build.sh
+    && mkdir /build/output \
+    && NOCOMPRESS=1 /home/builder/build.sh \
+    && cp /build/exa/target/${TARGET}/release/exa /build/output/
 
-FROM alpine:edge as config
+FROM alpine:latest as config
 
 RUN addgroup exa \
     && adduser -G exa -s /bin/sh -D exa
@@ -25,7 +27,7 @@ ARG REVISION
 ARG CREATED
 
 COPY --from=config /etc/passwd /etc/passwd
-COPY --from=builder /build/exa/target/x86_64-unknown-linux-musl/release/exa /usr/local/bin/exa
+COPY --from=builder /build/output/exa /usr/local/bin/exa
 
 USER exa
 
