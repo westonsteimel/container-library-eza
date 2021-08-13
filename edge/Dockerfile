@@ -9,9 +9,7 @@ ARG REVISION
 RUN git clone --branch "${VERSION}" https://github.com/ogham/exa /build/exa \
     && cd /build/exa \
     && git reset --hard "${REVISION}" \
-    && mkdir /build/output \
-    && NOCOMPRESS=1 /home/builder/build.sh \
-    && cp /build/exa/target/${TARGET}/release/exa /build/output/
+    && NOCOMPRESS=1 /home/builder/build.sh
 
 FROM alpine:latest as config
 
@@ -27,7 +25,7 @@ ENV EXA_VERSION="${VERSION}" \
     TERM="xterm-256color"
 
 COPY --from=config /etc/passwd /etc/passwd
-COPY --from=builder /build/output/exa /usr/local/bin/exa
+COPY --from=builder /build/artifacts/exa /usr/local/bin/exa
 
 USER exa
 
