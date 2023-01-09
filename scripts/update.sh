@@ -1,9 +1,9 @@
 #!/bin/bash
 
-set -e
+set -xeuo pipefail
 
-version=`curl --silent "https://api.github.com/repos/ogham/exa/releases/latest" | jq .tag_name | xargs`
-revision=`curl --silent "https://api.github.com/repos/ogham/exa/commits/${version}" | jq .sha | xargs`
+version=$(curl --silent "https://api.github.com/repos/ogham/exa/releases/latest" | jq -er .tag_name)
+revision=$(curl --silent "https://api.github.com/repos/ogham/exa/commits/${version}" | jq -er .sha)
 version=${version#"v"}
 echo "latest stable version: ${version}, revision: ${revision}"
 
@@ -18,7 +18,7 @@ git diff-index --quiet HEAD || git commit --message "updated stable to version $
 set -e
 
 version="master"
-revision=`curl --silent "https://api.github.com/repos/ogham/exa/commits/${version}" | jq .sha | xargs`
+revision=$(curl --silent "https://api.github.com/repos/ogham/exa/commits/${version}" | jq -er .sha)
 echo "latest edge version: ${version}, revision: ${revision}"
 
 sed -ri \
