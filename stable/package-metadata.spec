@@ -1,0 +1,2 @@
+*link:
++ --package-metadata={\"type\":\"static-binary\",\"name\":\"exa\",\"version\":\"%:getenv(EXA_VERSION \",\"architecture\":\"%:getenv(ARCHITECTURE \",\"sourceRepository\":\"%:getenv(EXA_REPOSITORY \",\"commit\":\"%:getenv(EXA_COMMIT \",\"purls\":[\"pkg:cargo/exa@%:getenv(EXA_VERSION ?arch=%:getenv(ARCHITECTURE \",\"pkg:github/ogham/exa@%:getenv(EXA_COMMIT \"],\"cpes\":[\"cpe:2.3:a:ogham:exa:%:getenv(EXA_VERSION :*:*:*:*:*:%:getenv(ARCHITECTURE :*\"]})))))))))

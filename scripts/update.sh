@@ -2,14 +2,15 @@
 
 set -xeuo pipefail
 
-version=$(curl --silent "https://api.github.com/repos/ogham/exa/releases/latest" | jq -er .tag_name)
-revision=$(curl --silent "https://api.github.com/repos/ogham/exa/commits/${version}" | jq -er .sha)
-version=${version#"v"}
+latest_stable_release_tag=$(curl --silent "https://api.github.com/repos/ogham/exa/releases/latest" | jq -er .tag_name)
+revision=$(curl --silent "https://api.github.com/repos/ogham/exa/commits/${latest_stable_release_tag}" | jq -er .sha)
+version=${latest_stable_release_tag#"v"}
 echo "latest stable version: ${version}, revision: ${revision}"
 
 sed -ri \
-    -e 's/^(ARG VERSION=).*/\1'"\"${version}\""'/' \
-    -e 's/^(ARG REVISION=).*/\1'"\"${revision}\""'/' \
+    -e 's/^(ARG EXA_BRANCH=).*/\1'"\"${latest_stable_release_tag}\""'/' \
+    -e 's/^(ARG EXA_VERSION=).*/\1'"\"${version}\""'/' \
+    -e 's/^(ARG EXA_COMMIT=).*/\1'"\"${revision}\""'/' \
     "stable/Dockerfile"
 
 git add stable/Dockerfile
@@ -22,8 +23,8 @@ revision=$(curl --silent "https://api.github.com/repos/ogham/exa/commits/${versi
 echo "latest edge version: ${version}, revision: ${revision}"
 
 sed -ri \
-    -e 's/^(ARG VERSION=).*/\1'"\"${version}\""'/' \
-    -e 's/^(ARG REVISION=).*/\1'"\"${revision}\""'/' \
+    -e 's/^(ARG EXA_VERSION=).*/\1'"\"${version}\""'/' \
+    -e 's/^(ARG EXA_COMMIT=).*/\1'"\"${revision}\""'/' \
     "edge/Dockerfile"
 
 git add edge/Dockerfile
