@@ -1,3 +1,3 @@
-# exa in Docker
+# eza in Docker
 
-[exa](https://github.com/ogham/exa) running within a Docker container.
+[eza](https://github.com/eza-community/eza) running within a Docker container.

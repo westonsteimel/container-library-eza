@@ -47,8 +47,8 @@ echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdi
 # Login to GitHub Container registry
 echo "${GHCR_TOKEN}" | docker login -u "${GITHUB_OWNER}" --password-stdin "ghcr.io"
 
-docker_base_repo="docker.io/${DOCKER_USERNAME}/exa"
-ghcr_base_repo="ghcr.io/${GITHUB_OWNER}/exa"
+docker_base_repo="docker.io/${DOCKER_USERNAME}/eza"
+ghcr_base_repo="ghcr.io/${GITHUB_OWNER}/eza"
 
 IFS=',' read -ra TAGS <<< "$DOCKER_TAGS"
 for tag in "${TAGS[@]}"; do
