@@ -1,7 +1,7 @@
 ARG EZA_REPOSITORY="https://github.com/eza-community/eza"
-ARG EZA_VERSION="0.20.6"
-ARG EZA_BRANCH="v0.20.6"
-ARG EZA_COMMIT="1065c6daffd1351fee9bfe68fb839c68345f0056"
+ARG EZA_VERSION="0.20.7"
+ARG EZA_BRANCH="v0.20.7"
+ARG EZA_COMMIT="29afcb50e0d16e87ac5fd0f70976231a92d80966"
 
 FROM docker.io/rust:alpine as builder
 COPY package-metadata.spec /build/
